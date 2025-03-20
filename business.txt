@@ -1,0 +1,11 @@
+Se asume lo siguiente ademas de lo indicado en el documento de definición:   
+* Los calculos de identificadores y de fechas de creación los realiza la propia base de datos y/o la API, no se cargana mano
+* La unica validación del tweet, ademas de la obligatoriedad de todos los campos, es la cantidad de caracteres (no exeder 280)
+* No se pueden modificar ni borrar los tweets una vez creados
+* Los usuarios no pueden seguirse a si mismos
+* No se puede dejar de seguir a un usuario una vez que se hizo el follow
+* No hay maximo de usuarios a seguir ni de seguidores
+* Los usuarios no ven sus propoios tweets en el Timeline
+* El timeline esta ordenado de manera cronologica de los tweets mas nuevos a los mas antiguos
+* El timeline no esta limitado ni en fechas ni cantidad de tweets
+* El timeline no esta paginado, siempre devuelve el de tweets de usuarios seguidores
