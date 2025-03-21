@@ -1,5 +1,15 @@
 # Tweets API Changelog
 
+## VERSION 0.3.0
+_Dockerization_
+<hr>
+
+### DOCKER
+* Docker compose added for container execution (new)
+* Dockerfiel added for container execution (new)
+
+<hr>
+
 ## VERSION 0.2.0
 _Documentation_
 <hr>

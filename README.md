@@ -1,4 +1,4 @@
-# Ualá Challenge Tweets API v0.2.0
+# Ualá Challenge Tweets API v0.3.0
 
 This project is a simple API for managing tweets and user follows.
 It's written in Golang using the Gin framework, and the persistence layer is implemented using MongoDB.
@@ -16,6 +16,9 @@ uala-challenge
 │   └── API
 │       ├── swagger_server.sh          # Swagger UI docker launch script
 │       └── swagger.json               # API documentation in Swagger format
+├── docker
+│   ├── docker-compose.yml             # Compose file to run the entire solution
+│   └── Dockerfile                     # Multistaging docker file to build and run the API
 ├── initial_data
 │   ├── initial_data_loader.py         # Script for initial data load
 │   └── initial_data.csv               # Inifial data file
@@ -41,7 +44,8 @@ uala-challenge
 │       └── config.go                  # Environment configuration handler
 ├── tests
 │   └── test_cases.py                  # Test cases ejecution script
-├── .env                               # Environment configuration file 
+├── .docker-env                        # Environment configuration file for docker execution
+├── .env                               # Environment configuration file for local execution
 ├── .gitignore                         # Git ignore file 
 ├── bussiness.txt                      # Business rules and assumptions
 ├── CHANGELOG.md                       # Changelog File
@@ -112,6 +116,17 @@ Set this configuration launch.json
    "args": ["-e","${workspaceFolder}/.env"],
 }
 ```
+
+## Docker Execution
+You can run the entire solution using docker, just run the compose provided on the docker folder:
+
+```bash
+ cd docker
+ docker compose build
+ docker compose up
+```
+
+Take in consideration that runing this way, the database content will be lost once the compose is down.
 
 ## Initial Data
 This project includes an initial data file. To load this data into the database, you can run the following:
