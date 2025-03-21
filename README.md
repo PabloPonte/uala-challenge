@@ -1,56 +1,73 @@
 # Ualá Challenge Tweets API
 
-This project is a simple API for managing tweets and follows using Golang, the Gin framework, and MongoDB. It follows a Domain-Driven Design (DDD) approach to structure the codebase.
+This project is a simple API for managing tweets and user follows.
+It's written in Golang using the Gin framework, and the persistence layer is implemented using MongoDB.
 
 ## Project Structure
 
-```
+```bash
 uala-challenge
 ├── cmd
 │   └── server
-│       └── main.go          # Entry point of the application
+│       └── main.go                    # Entry point of the application, server start
+├── initial_data
+│   ├── initial_data_loader.py         # Script for initial data load
+│   └── initial_data.csv               # Inifial data file
 ├── internal
 │   ├── domain
-│   │   ├── tweet.go         # Domain model for tweets
-│   │   └── follow.go        # Domain model for follows
+│   │   ├── tweet.go                   # Domain model for tweets
+│   │   ├── repository.go              # Repository Interfaces Definitions
+│   │   └── follow.go                  # Domain model for follows 
 │   ├── infrastructure
 │   │   ├── database
-│   │   │   └── mongo.go     # MongoDB connection logic
-│   │   ├── router
-│   │   │   └── gin.go       # Gin router setup and API endpoints
-│   │   └── repository
-│   │       ├── tweet_repository.go  # Repository for tweets
-│   │       └── follow_repository.go  # Repository for follows
-│   ├── interfaces
-│   │   ├── controllers
-│   │   │   ├── tweet_controller.go   # Controller for tweet-related requests
-│   │   │   └── follow_controller.go   # Controller for follow-related requests
-│   │   └── repository
-│   │       ├── tweet_repository.go    # Interface for tweet repository
-│   │       └── follow_repository.go    # Interface for follow repository
-│   └── usecases
-│       ├── tweet_usecase.go           # Use case for managing tweets
-│       └── follow_usecase.go          # Use case for managing follows
+│   │   │   └── mongo.go               # MongoDB connection logic
+│   │   ├── repository
+│   │   │   ├── tweet_repository.go    # Repository implementation for tweets
+│   │   │   └── follow_repository.go   # Repository implementation for follows
+│   │   └── router
+│   │       └── gin.go                 # Gin router setup and API endpoints
+│   └── interfaces
+│       └── controllers
+│           ├── tweet_controller.go    # Controller for tweet-related requests
+│           └── follow_controller.go   # Controller for follow-related requests
+├── pkg
+│   └── config
+│       └── config.go                  # Environment configuration handler
+├── tests
+│   └── test_cases.py                  # Test cases ejecution script
+├── .env                               # Environment configuration file 
+├── .gitignore                         # Git ignore file 
+├── bussiness.txt                      # Business rules and assumptions
+├── CHANGELOG.md                       # Changelog File
 ├── go.mod                             # Go module file
+├── go.sum                             # Go module file
+├── LICENCE                            # Licence information
 └── README.md                          # Project documentation
 ```
 
-## Setup Instructions
+## Prerequisites
+In order to run this project you will need the following tools
+* **Git** installed, in order to pull this repository.
+* **Go** installed, in order to run the project locally, build a binary and/or debug the project.
+* **Python** installed, in order to run the test script and the initial data script, some extra python libraries could be needed.
+* **Docker** installed, if you want to run the application without instaling any other dependency, you can run the provided docker compose file to run all the services needed.
+
+## Setup Instructions for local run and development
 
 1. **Clone the repository:**
-   ```
-   git clone <repository-url>
+   ```bash
+   git clone https://github.com/PabloPonte/uala-challenge.git
    cd uala-challenge
    ```
 
 2. **Install dependencies:**
    Ensure you have Go installed, then run:
-   ```
+   ```bash
    go mod tidy
    ```
 
 3. **Set up MongoDB:**
-   Make sure you have a MongoDB instance running. Update the connection string in `internal/infrastructure/database/mongo.go` if necessary.
+   Make sure you have a MongoDB instance running. Check that the .env file has the correct variables values.
 
 4. **Run the application:**
    ```
@@ -67,20 +84,19 @@ uala-challenge
    - **Get User Timeline:**
      - Endpoint: `GET /tweet/:userId`
 
-## Initial Data
-pip install pymongo
-
-## run using .env
-### building the solution
+## Build and the application
+```bash
+# build the application
 go build -o tweetapi cmd/server/main.go
+# run the application
 ./tweetapi
-### running using the golang compiler
-go run cmd/server/main.go -e $PWD/.env
-### debuging in vscode
-setting this configuration launch.json
+```
+
+### Debuging in VSCode
+Set this configuration launch.json
 ```json
  {
-   "name": "Launch Package",
+   "name": "Launch API Server",
    "type": "go",
    "request": "launch",
    "mode": "auto",
@@ -89,14 +105,31 @@ setting this configuration launch.json
 }
 ```
 
+## Initial Data
+This project includes an initial data file. To load this data into the database, you can run the following:
+
+```bash
+cd initial_data
+python3 initial_data_loader.py
+```
+
+This script assumes that the .env file is in the root folder.
+You may need to install some additional libraries to run this script.
+
 ## Testing
 
-Unit tests are included in the project. You can run them using:
+A python test script is included in the tests folder. This script includes 12 test cases. To run the tests, simply run the script with the application runing:
+ in the project. You can run them using:
+
+```bash
+cd tests
+python3 test_cases.py
 ```
-go test ./...
-```
+This script assumes that the application is runing locally in the port 5000.
 
 ## Documentation
+
+TODO!
 
 Further documentation for the API and data models will be provided in the respective files and can be enhanced using tools like Swagger.
 
