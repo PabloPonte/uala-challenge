@@ -39,7 +39,7 @@ with open(CSV_FILE_PATH, newline='', encoding='utf-8') as csvfile:
     posts = []
     for row in reader:
         row["userId"] = int(row["userId"])  # Convert userId to integer
-        row["creation_datetime"] = datetime.strptime(row["creation_datetime"], "%Y-%m-%d %H:%M:%S")  # Convert to datetime
+        row["creationDate"] = datetime.strptime(row["creationDate"], "%Y-%m-%d %H:%M:%S")  # Convert to datetime
         posts.append(row)
         users.add(row["userId"])
 

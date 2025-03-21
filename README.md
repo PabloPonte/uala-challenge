@@ -10,6 +10,9 @@ uala-challenge
 ├── cmd
 │   └── server
 │       └── main.go                    # Entry point of the application, server start
+├── doc
+│   └── dataabse
+│       └── collections.md             # Database collections documentation
 ├── initial_data
 │   ├── initial_data_loader.py         # Script for initial data load
 │   └── initial_data.csv               # Inifial data file
