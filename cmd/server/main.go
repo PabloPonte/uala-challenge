@@ -11,7 +11,7 @@ import (
 	"uala-challenge/pkg/config"
 )
 
-const API_VERSION = "0.0.1"
+const API_VERSION = "0.2.0"
 
 func main() {
 

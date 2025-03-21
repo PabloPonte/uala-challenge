@@ -1,0 +1,162 @@
+{
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "text/plain",
+      "application/json"
+    ],
+    "schemes": [
+      "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+      "description": "API documentation for the Ualá Challenge Tweets API",
+      "title": "Ualá challenge Twitter API",
+      "contact": {
+        "name": "Pablo Ponte",
+        "url": "https://github.com/PabloPonte/uala-challenge",
+        "email": "pbponte@gmail.com"
+      },
+      "version": "1.0"
+    },
+    "host": "localhost:5000",
+    "basePath": "/",
+    "paths": {
+      "/follow": {
+        "post": {
+          "description": "Follow a user",
+          "produces": [
+            "application/json"
+          ],
+          "summary": "A user follows another user",
+          "operationId": "Follow",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "number",
+                    "description": "ID of the user who will be following another user"
+                  },
+                  "followedUser": {
+                    "type": "number",
+                    "description": "The id of the user that will be followed by userId"
+                  }
+                },
+                "required": ["userId", "followedUser"]
+              }
+            }
+          ],
+            "responses": {
+                "201": {
+                    "description":"Follow created successfully"
+                },
+                "400": {
+                    "description": "User can't follow itself"
+                }
+            }
+        }
+      },
+      "/tweet": {
+        "post": {
+          "description": "New Tweet",
+          "produces": [
+            "application/json"
+          ],
+          "summary": "Creates a tweet",
+          "operationId": "NewTweet",
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "required": true,
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "number",
+                    "description": "ID of the user who will be tweeting"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "The content of the tweet"
+                  }
+                },
+                "required": ["userId", "content"]
+              }
+            }
+          ],
+            "responses": {
+                "201": {
+                    "description":"Tweet created successfully"
+                },
+                "400": {
+                    "description": "Tweet content too long"
+                }
+            }
+        }
+      },
+      "/tweet/{userId}":{
+        "get":{
+            "description":"Get the user's tweets timeline",
+            "produces":[
+                "application/json"
+            ],
+            "summary":"Get the user's tweets timeline",
+            "operationId":"GetTimeline",
+            "parameters":[
+                {
+                    "name":"userId",
+                    "in":"path",
+                    "type":"integer",
+                    "description":"ID of the users whose timeline will be retrieved",
+                    "required":true
+                }
+            ],
+            "responses":{
+                "200":{
+                    "description":"User's timeline retrieved successfully",
+                    "schema":{
+                        "type":"object",
+                        "properties":{
+                            "payload":{
+                                "type":"array",
+                                "items":{
+                                    "type":"object",
+                                    "properties":{
+                                        "_id":{
+                                            "type":"string",
+                                            "description":"Internal ID of the tweet"
+                                        },
+                                        "userId":{
+                                            "type":"integer",
+                                            "description":"Tweet's author user ID"
+                                        },
+                                        "content":{
+                                            "type":"string",
+                                            "description":"Content of the tweet"
+                                        },
+                                        "creationDate":{
+                                            "type":"string",
+                                            "format":"date-time",
+                                            "description":"Creation date of the tweet"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "404":{
+                    "description":"Empty timeline"
+                }
+            }
+        }
+      }
+    }
+  }

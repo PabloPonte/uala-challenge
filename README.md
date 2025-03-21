@@ -1,4 +1,4 @@
-# Ualá Challenge Tweets API
+# Ualá Challenge Tweets API v0.2.0
 
 This project is a simple API for managing tweets and user follows.
 It's written in Golang using the Gin framework, and the persistence layer is implemented using MongoDB.
@@ -11,8 +11,11 @@ uala-challenge
 │   └── server
 │       └── main.go                    # Entry point of the application, server start
 ├── doc
-│   └── dataabse
-│       └── collections.md             # Database collections documentation
+│   ├── dataabse
+│   │   └── collections.md             # Database collections documentation
+│   └── API
+│       ├── swagger_server.sh          # Swagger UI docker launch script
+│       └── swagger.json               # API documentation in Swagger format
 ├── initial_data
 │   ├── initial_data_loader.py         # Script for initial data load
 │   └── initial_data.csv               # Inifial data file
@@ -71,6 +74,8 @@ In order to run this project you will need the following tools
 
 3. **Set up MongoDB:**
    Make sure you have a MongoDB instance running. Check that the .env file has the correct variables values.
+   
+   If you want to run a local instance of MongoDB, you can use the script [Local Database](local_database.sh), to run a docker container.
 
 4. **Run the application:**
    ```
@@ -132,9 +137,16 @@ This script assumes that the application is runing locally in the port 5000.
 
 ## Documentation
 
-TODO!
+For database documentation check this file: [Database Info](/doc/database/collections.md)
 
-Further documentation for the API and data models will be provided in the respective files and can be enhanced using tools like Swagger.
+For the API documentation you check this [Swagger File](/doc/API/swagger.json), you can see the information in a more friendly interface runing a Swagger UI Server:
+```bash
+cd doc/API
+chmod a+x swagger_server.sh
+./swagger_server.sh
+```
+And the going to [localhost:5001](http://localhost:5001) in your browser.
+
 
 ## License
 
