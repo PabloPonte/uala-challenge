@@ -9,41 +9,48 @@ It's written in Golang using the Gin framework, and the persistence layer is imp
 uala-challenge
 ├── cmd
 │   └── server
-│       └── main.go                    # Entry point of the application, server start
+│       └── main.go                       # Entry point of the application, server start
 ├── doc
-│   ├── dataabse
-│   │   └── collections.md             # Database collections documentation
-│   └── API
-│       ├── swagger_server.sh          # Swagger UI docker launch script
-│       └── swagger.json               # API documentation in Swagger format
+│   ├── API
+│   │   ├── swagger.json                  # API documentation in Swagger format
+│   │   └── swagger_server.sh             # Swagger UI docker launch script
+│   └── database
+│       └── collections.md                # Database collections documentation
 ├── docker
-│   ├── docker-compose.yml             # Compose file to run the entire solution
-│   └── Dockerfile                     # Multistaging docker file to build and run the API
+│   ├── docker-compose.yml                # Compose file to run the entire solution
+│   └── Dockerfile                        # Multistaging docker file to build and run the API
 ├── initial_data
-│   ├── initial_data_loader.py         # Script for initial data load
-│   └── initial_data.csv               # Inifial data file
+│   ├── initial_data.csv                  # Inifial data file
+│   └── initial_data_loader.py            # Script for initial data load
 ├── internal
 │   ├── domain
-│   │   ├── tweet.go                   # Domain model for tweets
-│   │   ├── repository.go              # Repository Interfaces Definitions
-│   │   └── follow.go                  # Domain model for follows 
+│   │   ├── follows
+│   │   │   ├── follow.go                 # Domain model for follows
+│   │   │   └── repository.go             # Repository interfaces definitions for follows
+│   │   └── tweets
+│   │       ├── repository.go             # Repository interfaces definitions for follows
+│   │       └── tweet.go                  # Domain model for tweets
 │   ├── infrastructure
 │   │   ├── database
-│   │   │   └── mongo.go               # MongoDB connection logic
-│   │   ├── repository
-│   │   │   ├── tweet_repository.go    # Repository implementation for tweets
-│   │   │   └── follow_repository.go   # Repository implementation for follows
+│   │   │   └── mongo.go                  # MongoDB connection logic
+│   │   ├── repositories
+│   │   │   ├── followsReposiroty
+│   │   │   │   └── follow_repository.go  # Repository implementation for follows
+│   │   │   └── tweetsRepository
+│   │   │       └── tweet_repository.go   # Repository implementation for tweets
 │   │   └── router
-│   │       └── gin.go                 # Gin router setup and API endpoints
+│   │       └── gin.go                    # Gin router setup and API endpoints
 │   └── interfaces
 │       └── controllers
-│           ├── tweet_controller.go    # Controller for tweet-related requests
-│           └── follow_controller.go   # Controller for follow-related requests
+│           ├── followController
+│           │   └── follow_controller.go  # Controller for follow-related requests
+│           └── tweetController
+│               └── tweet_controller.go   # Controller for tweet-related requests
 ├── pkg
 │   └── config
-│       └── config.go                  # Environment configuration handler
+│       └── config.go                     # Environment configuration handler
 ├── tests
-│   └── test_cases.py                  # Test cases ejecution script
+│   └── test_cases.py                     # Test cases ejecution script
 ├── .docker-env                        # Environment configuration file for docker execution
 ├── .env                               # Environment configuration file for local execution
 ├── .gitignore                         # Git ignore file 
@@ -52,6 +59,7 @@ uala-challenge
 ├── go.mod                             # Go module file
 ├── go.sum                             # Go module file
 ├── LICENCE                            # Licence information
+├── local_database.sh                  # local database launch script
 └── README.md                          # Project documentation
 ```
 

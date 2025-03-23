@@ -1,13 +1,14 @@
 package router
 
 import (
-	"uala-challenge/internal/interfaces/controllers"
+	"uala-challenge/internal/interfaces/controllers/followController"
+	"uala-challenge/internal/interfaces/controllers/tweetController"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter(tweetController *controllers.TweetController, followController *controllers.FollowController) *gin.Engine {
+func SetupRouter(tweetController *tweetController.TweetController, followController *followController.FollowController) *gin.Engine {
 
 	gin.SetMode(gin.ReleaseMode)
 

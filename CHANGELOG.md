@@ -10,10 +10,15 @@ _Documentation Update. Code Refactoring._
 ### Tweets
 * The domain component was refactored to use a individual package for tweets (update)
 * The repository component was refactored to use a individual package for tweets (update)
+* The controller component was refactored to use a individual package for tweets (update)
 
 ### Follows
 * The domain component was refactored to use a individual package for follows (update)
 * The repository component was refactored to use a individual package for follows (update)
+* The controller component was refactored to use a individual package for follows (update)
+
+### Router
+* The gin engine was set to run in production mode as default (update)
 
 ### General Changes
 * Some tweaks and code revisions to use better practices (update)

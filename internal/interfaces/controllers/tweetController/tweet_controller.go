@@ -1,11 +1,10 @@
-package controllers
+package tweetController
 
 import (
 	"context"
 	"net/http"
 	"strconv"
 	"time"
-
 	"uala-challenge/internal/domain/tweets"
 
 	"github.com/gin-gonic/gin"

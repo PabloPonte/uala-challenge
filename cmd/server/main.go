@@ -8,7 +8,8 @@ import (
 	"uala-challenge/internal/infrastructure/repositories/followsReposiroty"
 	"uala-challenge/internal/infrastructure/repositories/tweetsRepository"
 	"uala-challenge/internal/infrastructure/router"
-	"uala-challenge/internal/interfaces/controllers"
+	"uala-challenge/internal/interfaces/controllers/followController"
+	"uala-challenge/internal/interfaces/controllers/tweetController"
 	"uala-challenge/pkg/config"
 )
 
@@ -32,10 +33,10 @@ func main() {
 	defer database.Disconnect(ctx)
 
 	tweetRepo := tweetsRepository.NewTweetRepository(database.GetDatabase())
-	tweetController := controllers.NewTweetController(tweetRepo)
+	tweetController := tweetController.NewTweetController(tweetRepo)
 
 	followRepo := followsReposiroty.NewFollowRepository(database.GetDatabase())
-	followController := controllers.NewFollowController(followRepo)
+	followController := followController.NewFollowController(followRepo)
 
 	// Set up the API routes
 	r := router.SetupRouter(tweetController, followController)
