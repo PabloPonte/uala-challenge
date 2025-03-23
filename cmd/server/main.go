@@ -11,7 +11,7 @@ import (
 	"uala-challenge/pkg/config"
 )
 
-const API_VERSION = "0.3.0"
+const API_VERSION = "0.3.1"
 
 func main() {
 
@@ -30,14 +30,14 @@ func main() {
 	}
 	defer database.Disconnect(ctx)
 
-	tweet_repo := repository.NewTweetRepository(database.GetDatabase())
-	tweet_controller := controllers.NewTweetController(tweet_repo)
+	tweetRepo := repository.NewTweetRepository(database.GetDatabase())
+	tweetController := controllers.NewTweetController(tweetRepo)
 
-	follow_repo := repository.NewFollowRepository(database.GetDatabase())
-	follow_controller := controllers.NewFollowController(follow_repo)
+	followRepo := repository.NewFollowRepository(database.GetDatabase())
+	followController := controllers.NewFollowController(followRepo)
 
 	// Set up the API routes
-	r := router.SetupRouter(tweet_controller, follow_controller)
+	r := router.SetupRouter(tweetController, followController)
 
 	// Start the server
 	if err := r.Run(":5000"); err != nil {

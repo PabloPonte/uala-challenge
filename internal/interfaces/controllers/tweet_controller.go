@@ -6,16 +6,16 @@ import (
 	"strconv"
 	"time"
 
-	"uala-challenge/internal/domain"
+	"uala-challenge/internal/domain/tweets"
 
 	"github.com/gin-gonic/gin"
 )
 
 type TweetController struct {
-	tweetRepo domain.TweetRepository
+	tweetRepo tweets.TweetRepository
 }
 
-func NewTweetController(tweetRepo domain.TweetRepository) *TweetController {
+func NewTweetController(tweetRepo tweets.TweetRepository) *TweetController {
 	return &TweetController{tweetRepo: tweetRepo}
 }
 
@@ -31,14 +31,13 @@ func (tc *TweetController) CreateTweet(c *gin.Context) {
 		return
 	}
 
-	var tweet domain.Tweet
+	var tweet tweets.Tweet
 
-	tweet.ID = ""
 	tweet.UserId = tweetRequest.UserId
 	tweet.Content = tweetRequest.Content
 	tweet.CreationDate = time.Now()
 
-	if len(tweet.Content) > domain.MAX_TWEET_LENGTH {
+	if len(tweet.Content) > tweets.MAX_TWEET_LENGTH {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Tweet content is too long"})
 		return
 	}

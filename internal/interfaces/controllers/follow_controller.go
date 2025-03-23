@@ -4,16 +4,16 @@ import (
 	"context"
 	"net/http"
 	"time"
-	"uala-challenge/internal/domain"
+	"uala-challenge/internal/domain/follows"
 
 	"github.com/gin-gonic/gin"
 )
 
 type FollowController struct {
-	followRepo domain.FollowRepository
+	followRepo follows.FollowRepository
 }
 
-func NewFollowController(followRepo domain.FollowRepository) *FollowController {
+func NewFollowController(followRepo follows.FollowRepository) *FollowController {
 	return &FollowController{followRepo: followRepo}
 }
 

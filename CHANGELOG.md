@@ -1,5 +1,23 @@
 # Tweets API Changelog
 
+## VERSION 0.3.1
+_Documentation Update. Code Refactoring._
+<hr>
+
+### API Documentation
+* Response model added to the new tweet endpoint documentation (update)
+
+### Tweets
+* The domain component was refactored to use a individual package for tweets (update)
+
+### Follows
+* The domain component was refactored to use a individual package for follows (update)
+
+### General Changes
+* Some tweaks and code revisions to use better practices (update)
+
+<hr>
+
 ## VERSION 0.3.0
 _Dockerization_
 <hr>

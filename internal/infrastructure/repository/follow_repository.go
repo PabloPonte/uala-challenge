@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"uala-challenge/internal/domain"
+	"uala-challenge/internal/domain/follows"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -13,7 +13,7 @@ type followRepository struct {
 	collection *mongo.Collection
 }
 
-func NewFollowRepository(db *mongo.Database) domain.FollowRepository {
+func NewFollowRepository(db *mongo.Database) follows.FollowRepository {
 	return &followRepository{
 		collection: db.Collection("follows"),
 	}
@@ -52,7 +52,7 @@ func (r *followRepository) GetFollwersByUserId(ctx context.Context, userId int) 
 		return
 	}
 
-	var follow domain.Follow
+	var follow follows.Follow
 
 	if err = result.Decode(&follow); err != nil {
 		return

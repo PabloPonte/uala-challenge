@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"uala-challenge/internal/domain"
+	"uala-challenge/internal/domain/tweets"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -16,14 +16,14 @@ type tweetRepository struct {
 	collection *mongo.Collection
 }
 
-func NewTweetRepository(db *mongo.Database) domain.TweetRepository {
+func NewTweetRepository(db *mongo.Database) tweets.TweetRepository {
 
 	return &tweetRepository{
 		collection: db.Collection("tweets"),
 	}
 }
 
-func (r *tweetRepository) CreateTweet(ctx context.Context, tweet *domain.Tweet) (domain.Tweet, error) {
+func (r *tweetRepository) CreateTweet(ctx context.Context, tweet *tweets.Tweet) (tweets.Tweet, error) {
 	tweet.CreationDate = time.Now()
 	result, err := r.collection.InsertOne(ctx, tweet)
 
@@ -32,7 +32,7 @@ func (r *tweetRepository) CreateTweet(ctx context.Context, tweet *domain.Tweet) 
 	return *tweet, err
 }
 
-func (r *tweetRepository) GetTweetsByUserId(ctx context.Context, userId int) (tweets []domain.Tweet, err error) {
+func (r *tweetRepository) GetTweetsByUserId(ctx context.Context, userId int) (tweetsList []tweets.Tweet, err error) {
 
 	// get the users that the user follows
 	followers, err := NewFollowRepository(r.collection.Database()).GetFollwersByUserId(ctx, userId)
@@ -61,11 +61,11 @@ func (r *tweetRepository) GetTweetsByUserId(ctx context.Context, userId int) (tw
 
 	// get all the resutls
 	for cursor.Next(ctx) {
-		var tweet domain.Tweet
+		var tweet tweets.Tweet
 		if err = cursor.Decode(&tweet); err != nil {
 			return
 		}
-		tweets = append(tweets, tweet)
+		tweetsList = append(tweetsList, tweet)
 	}
 
 	return

@@ -1,4 +1,4 @@
-# Ualá Challenge Tweets API v0.3.0
+# Ualá Challenge Tweets API v0.3.1
 
 This project is a simple API for managing tweets and user follows.
 It's written in Golang using the Gin framework, and the persistence layer is implemented using MongoDB.

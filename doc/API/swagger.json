@@ -93,7 +93,34 @@
           ],
             "responses": {
                 "201": {
-                    "description":"Tweet created successfully"
+                    "description":"Tweet created successfully",
+                    "schema":{
+                        "type":"object",
+                        "properties":{
+                            "data":{
+                                "type":"object",
+                                "properties":{
+                                    "_id":{
+                                        "type":"string",
+                                        "description":"Internal ID of the tweet"
+                                    },
+                                    "userId":{
+                                        "type":"integer",
+                                        "description":"Tweet's author user ID"
+                                    },
+                                    "content":{
+                                        "type":"string",
+                                        "description":"Content of the tweet"
+                                    },
+                                    "creationDate":{
+                                        "type":"string",
+                                        "format":"date-time",
+                                        "description":"Creation date of the tweet"
+                                    }
+                                }
+                            }
+                        }
+                    }
                 },
                 "400": {
                     "description": "Tweet content too long"

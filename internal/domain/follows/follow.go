@@ -1,4 +1,4 @@
-package domain
+package follows
 
 type Follow struct {
 	UserId        int   `json:"userId" bson:"userId"`
