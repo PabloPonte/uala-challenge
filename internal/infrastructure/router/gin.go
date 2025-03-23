@@ -9,6 +9,8 @@ import (
 
 func SetupRouter(tweetController *controllers.TweetController, followController *controllers.FollowController) *gin.Engine {
 
+	gin.SetMode(gin.ReleaseMode)
+
 	router := gin.Default()
 
 	// Enable CORS middleware
