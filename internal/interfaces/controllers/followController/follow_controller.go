@@ -1,20 +1,19 @@
 package followController
 
 import (
-	"context"
 	"net/http"
-	"time"
 	"uala-challenge/internal/domain/follows"
+	"uala-challenge/internal/services/followService"
 
 	"github.com/gin-gonic/gin"
 )
 
 type FollowController struct {
-	followRepo follows.FollowRepository
+	followService followService.FollowService
 }
 
-func NewFollowController(followRepo follows.FollowRepository) *FollowController {
-	return &FollowController{followRepo: followRepo}
+func NewFollowController(followService followService.FollowService) *FollowController {
+	return &FollowController{followService: followService}
 }
 
 func (fc *FollowController) CreateFollow(c *gin.Context) {
@@ -26,22 +25,22 @@ func (fc *FollowController) CreateFollow(c *gin.Context) {
 
 	var err error
 
+	// parameter validation and parsing
 	if err = c.ShouldBindJSON(&followRequest); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	if followRequest.UserId == followRequest.FollowedUser {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "User can't follow itself"})
-		return
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-	defer cancel()
-
-	err = fc.followRepo.CreateFollow(ctx, followRequest.UserId, followRequest.FollowedUser)
+	err = fc.followService.FollowUser(followRequest.UserId, followRequest.FollowedUser)
 
 	if err != nil {
+
+		// business error handling
+		if err == follows.ErrSelfFollow {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
+		}
+
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}

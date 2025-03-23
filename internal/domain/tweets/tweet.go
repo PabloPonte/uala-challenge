@@ -1,8 +1,16 @@
 package tweets
 
-import "time"
+import (
+	"errors"
+	"time"
+)
 
+// constants
 const MAX_TWEET_LENGTH = 280
+
+// domain errors
+var ErrTweetTooLong = errors.New("Tweet content is too long")
+var ErrEmptyTimeline = errors.New("User timeline is empty")
 
 // Tweet represents a tweet in the system.
 type Tweet struct {
@@ -15,7 +23,8 @@ type Tweet struct {
 // NewTweet creates a new Tweet instance.
 func NewTweet(userId int, content string) *Tweet {
 	return &Tweet{
-		UserId:  userId,
-		Content: content,
+		UserId:       userId,
+		Content:      content,
+		CreationDate: time.Now(),
 	}
 }

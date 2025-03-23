@@ -21,8 +21,6 @@ func NewFollowRepository(db *mongo.Database) follows.FollowRepository {
 
 func (r *followRepository) CreateFollow(ctx context.Context, userId int, followedUser int) (err error) {
 
-	// ## TODO bussines rules, a user can not follow itself
-
 	// using an upsert operation, the follow will be created if it does not exist
 	// using $addToSet prevents adding duplicates to the followedUsers array
 	filter := bson.M{"userId": userId}

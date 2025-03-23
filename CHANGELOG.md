@@ -1,5 +1,20 @@
 # Tweets API Changelog
 
+## VERSION 0.4.0
+_Service Layer._
+<hr>
+
+### Tweets
+* A new service layer was added to make the internal architecture more clear (update)
+* The application logic errors are now defined on the domain layer (update)
+
+### Follows
+* A new service layer was added to make the internal architecture more clear (update)
+* The application logic errors are now defined on the domain layer (update)
+
+<hr>
+
+
 ## VERSION 0.3.1
 _Documentation Update. Code Refactoring._
 <hr>

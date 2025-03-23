@@ -1,4 +1,4 @@
-# Ualá Challenge Tweets API v0.3.1
+# Ualá Challenge Tweets API v0.4.0
 
 This project is a simple API for managing tweets and user follows.
 It's written in Golang using the Gin framework, and the persistence layer is implemented using MongoDB.
@@ -41,26 +41,31 @@ uala-challenge
 │   │   └── router
 │   │       └── gin.go                    # Gin router setup and API endpoints
 │   └── interfaces
-│       └── controllers
-│           ├── followController
-│           │   └── follow_controller.go  # Controller for follow-related requests
-│           └── tweetController
-│               └── tweet_controller.go   # Controller for tweet-related requests
+│   |   └── controllers
+│   |       ├── followController
+│   |       │   └── follow_controller.go  # Controller for follow-related requests
+│   |       └── tweetController
+│   |           └── tweet_controller.go   # Controller for tweet-related requests
+│   └── services
+│       ├── followService
+│       │   └── follow_service.go         # Service for follows
+│       └── tweetsService
+│           └── tweets_service.go         # Service for tweets
 ├── pkg
 │   └── config
 │       └── config.go                     # Environment configuration handler
 ├── tests
 │   └── test_cases.py                     # Test cases ejecution script
-├── .docker-env                        # Environment configuration file for docker execution
-├── .env                               # Environment configuration file for local execution
-├── .gitignore                         # Git ignore file 
-├── bussiness.txt                      # Business rules and assumptions
-├── CHANGELOG.md                       # Changelog File
-├── go.mod                             # Go module file
-├── go.sum                             # Go module file
-├── LICENCE                            # Licence information
-├── local_database.sh                  # local database launch script
-└── README.md                          # Project documentation
+├── .docker-env                           # Environment configuration file for docker execution
+├── .env                                  # Environment configuration file for local execution
+├── .gitignore                            # Git ignore file 
+├── bussiness.txt                         # Business rules and assumptions
+├── CHANGELOG.md                          # Changelog File
+├── go.mod                                # Go module file
+├── go.sum                                # Go module file
+├── LICENCE                               # Licence information
+├── local_database.sh                     # local database launch script
+└── README.md                             # Project documentation
 ```
 
 ## Prerequisites
@@ -173,4 +178,14 @@ And the going to [localhost:5001](http://localhost:5001) in your browser.
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Besides golang core functionalities some external libraries are used, with the corresponding licenses:
+
+* https://pkg.go.dev/github.com/gin-gonic/gin under [MIT License](https://github.com/gin-gonic/gin/blob/master/LICENSE)
+* https://pkg.go.dev/github.com/gin-contrib/cors under [MIT License](https://github.com/gin-contrib/cors/blob/master/LICENSE)
+* https://pkg.go.dev/github.com/joho/godotenv under [MIT License](https://github.com/joho/godotenv/blob/main/LICENCE)    
+* https://pkg.go.dev/go.mongodb.org/mongo-driver under [Apache License](https://github.com/mongodb/mongo-go-driver/blob/master/LICENSE)
+
+
+

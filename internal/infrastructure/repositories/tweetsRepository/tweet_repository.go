@@ -5,6 +5,7 @@ import (
 	"time"
 	"uala-challenge/internal/domain/tweets"
 	"uala-challenge/internal/infrastructure/repositories/followsReposiroty"
+	"uala-challenge/internal/services/followService"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -35,7 +36,10 @@ func (r *tweetRepository) CreateTweet(ctx context.Context, tweet *tweets.Tweet) 
 func (r *tweetRepository) GetTweetsByUserId(ctx context.Context, userId int) (tweetsList []tweets.Tweet, err error) {
 
 	// get the users that the user follows
-	followers, err := followsReposiroty.NewFollowRepository(r.collection.Database()).GetFollwersByUserId(ctx, userId)
+
+	followService := followService.NewFollowService(followsReposiroty.NewFollowRepository(r.collection.Database()))
+
+	followers, err := followService.GetFollowersByUserId(userId)
 
 	if err != nil {
 		return
