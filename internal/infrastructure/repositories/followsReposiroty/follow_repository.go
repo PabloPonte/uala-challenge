@@ -45,7 +45,7 @@ func (r *followRepository) GetFollwersByUserId(ctx context.Context, userId int) 
 	}
 
 	// another error ocurred
-	if result.Err() != nil && result.Err() != mongo.ErrNoDocuments {
+	if result.Err() != nil {
 		err = result.Err()
 		return
 	}

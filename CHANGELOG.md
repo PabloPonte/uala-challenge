@@ -1,5 +1,15 @@
 # Tweets API Changelog
 
+## VERSION 0.4.1
+_Dependencies Fixes._
+<hr>
+
+### Tweets
+* The tweet service now depends on the follows service for followers list lookup(update)
+
+<hr>
+
+
 ## VERSION 0.4.0
 _Service Layer._
 <hr>

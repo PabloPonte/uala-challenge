@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 	"uala-challenge/internal/domain/tweets"
+	"uala-challenge/internal/services/followService"
 )
 
 // interface definition
@@ -14,11 +15,15 @@ type TweetsService interface {
 
 // implementation
 type tweetsService struct {
-	tweetRepo tweets.TweetRepository
+	tweetRepo     tweets.TweetRepository
+	followService followService.FollowService
 }
 
-func NewTweetsService(tweetRepo tweets.TweetRepository) TweetsService {
-	return &tweetsService{tweetRepo: tweetRepo}
+func NewTweetsService(tweetRepo tweets.TweetRepository, followService followService.FollowService) TweetsService {
+	return &tweetsService{
+		tweetRepo:     tweetRepo,
+		followService: followService,
+	}
 }
 
 func (ts *tweetsService) CreateTweet(userId int, content string) (tweets.Tweet, error) {
@@ -38,10 +43,22 @@ func (ts *tweetsService) CreateTweet(userId int, content string) (tweets.Tweet, 
 
 func (ts *tweetsService) GetTweetsByUserId(userId int) ([]tweets.Tweet, error) {
 
+	// get the users that the user follows
+
+	followers, err := ts.followService.GetFollowersByUserId(userId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if len(followers) == 0 {
+		return nil, tweets.ErrEmptyTimeline
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
-	tweetsList, err := ts.tweetRepo.GetTweetsByUserId(ctx, userId)
+	tweetsList, err := ts.tweetRepo.GetTweetsByUserId(ctx, userId, followers)
 
 	if err != nil {
 		return nil, err

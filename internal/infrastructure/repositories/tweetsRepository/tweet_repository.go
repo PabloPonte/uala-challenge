@@ -2,10 +2,7 @@ package tweetsRepository
 
 import (
 	"context"
-	"time"
 	"uala-challenge/internal/domain/tweets"
-	"uala-challenge/internal/infrastructure/repositories/followsReposiroty"
-	"uala-challenge/internal/services/followService"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -25,29 +22,19 @@ func NewTweetRepository(db *mongo.Database) tweets.TweetRepository {
 }
 
 func (r *tweetRepository) CreateTweet(ctx context.Context, tweet *tweets.Tweet) (tweets.Tweet, error) {
-	tweet.CreationDate = time.Now()
+
 	result, err := r.collection.InsertOne(ctx, tweet)
+
+	if err != nil {
+		return tweets.Tweet{}, err
+	}
 
 	tweet.ID = result.InsertedID.(primitive.ObjectID).Hex()
 
 	return *tweet, err
 }
 
-func (r *tweetRepository) GetTweetsByUserId(ctx context.Context, userId int) (tweetsList []tweets.Tweet, err error) {
-
-	// get the users that the user follows
-
-	followService := followService.NewFollowService(followsReposiroty.NewFollowRepository(r.collection.Database()))
-
-	followers, err := followService.GetFollowersByUserId(userId)
-
-	if err != nil {
-		return
-	}
-
-	if len(followers) == 0 {
-		return
-	}
+func (r *tweetRepository) GetTweetsByUserId(ctx context.Context, userId int, followers []int) (tweetsList []tweets.Tweet, err error) {
 
 	// get the tweets of the users that the user follows
 	filter := bson.M{"userId": bson.M{"$in": followers}}
