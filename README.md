@@ -68,6 +68,35 @@ uala-challenge
 └── README.md                             # Project documentation
 ```
 
+## Project Architecture
+
+The project follows a simple layered architecture with some DDD elements:
+
+```mermaid
+
+graph LR
+   A[<b>Routing Layer</b><br>GIN router] --> B
+   B[<b>Controller Layer</b><br>Requests and Responses] --> C
+   C[<b>Service Layer</b><br>Core Bussines Logic] --> D
+   D[<b>Repository Layer</b><br>Data Persistence] --> E
+   E[<b>Domain Layer</b><br>Domain Models]
+
+   class A step1;
+   class B step2;
+   class C step3;
+   class D step4;
+   class E step5;
+
+   classDef step1 fill:#00a,stroke:#000,stroke-width:2px,color:#fff;
+   classDef step2  fill:#880,stroke:#000,stroke-width:2px,color:#fff;
+   classDef step3  fill:#0a0,stroke:#000,stroke-width:2px,color:#fff;
+   classDef step4  fill:#a00,stroke:#000,stroke-width:2px,color:#fff;
+   classDef step5  fill:#a0a,stroke:#000,stroke-width:2px,color:#fff;
+
+```
+
+For a more detailed architecture explanation check the [Architecture Document](architecture.md)
+
 ## Prerequisites
 In order to run this project you will need the following tools
 * **Git** installed, in order to pull this repository.
